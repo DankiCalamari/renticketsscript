@@ -104,7 +104,7 @@ create_env_files() {
     print_message "\n=== Creating environment files ===" "$YELLOW"
     
     # Server .env
-    cat > ./renitckets/server/.env << EOF
+    cat > ./rentickets/server/.env << EOF
 # Server Configuration
 PORT=3001
 
@@ -135,7 +135,7 @@ CORS_ORIGIN=http://localhost:5173
 EOF
     
     # Client .env
-    cat > ./renitckets/client/.env << EOF
+    cat > ./rentickets/client/.env << EOF
 VITE_APP_API_URL=http://localhost:3001
 VITE_APP_AZURE_CLIENT_ID=$AZURE_CLIENT_ID
 VITE_APP_AZURE_TENANT_ID=$AZURE_TENANT_ID
@@ -147,6 +147,7 @@ EOF
 
 # Install dependencies
 install_dependencies() {
+    cd rentickets
     print_message "\n=== Installing dependencies ===" "$YELLOW"
     
     print_message "📦 Installing server dependencies..." "$YELLOW"
