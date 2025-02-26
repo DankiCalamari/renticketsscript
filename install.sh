@@ -28,8 +28,10 @@ check_directory() {
 # Clone the repository
 clone_repository() {
     print_message "=== Cloning Repository ===" "$YELLOW"
-    if git clone https://github.com/DankiCalamari/rentickets ; then
+    mkdir -p rentickets
+    if git clone https://github.com/DankiCalamari/rentickets ./rentickets; then
         print_message "✓ Repository cloned successfully" "$GREEN"
+        cd rentickets
     else
         print_message "Error cloning repository" "$RED"
         exit 1
@@ -104,7 +106,7 @@ create_env_files() {
     print_message "\n=== Creating environment files ===" "$YELLOW"
     
     # Server .env
-    cat > ./rentickets/server/.env << EOF
+    cat > ./server/.env << EOF
 # Server Configuration
 PORT=3001
 
@@ -135,7 +137,7 @@ CORS_ORIGIN=http://localhost:5173
 EOF
     
     # Client .env
-    cat > ./rentickets/client/.env << EOF
+    cat > ./client/.env << EOF
 VITE_APP_API_URL=http://localhost:3001
 VITE_APP_AZURE_CLIENT_ID=$AZURE_CLIENT_ID
 VITE_APP_AZURE_TENANT_ID=$AZURE_TENANT_ID
@@ -147,7 +149,6 @@ EOF
 
 # Install dependencies
 install_dependencies() {
-    cd rentickets
     print_message "\n=== Installing dependencies ===" "$YELLOW"
     
     print_message "📦 Installing server dependencies..." "$YELLOW"
@@ -182,8 +183,8 @@ main() {
     
     print_message "\n🎉 Installation completed successfully!" "$GREEN"
     print_message "\nTo start the application:" "$YELLOW"
-    print_message "1. Start the server: cd rentickets/server && npm run dev" "$NC"
-    print_message "2. Start the client: cd rentickets/client && npm run dev" "$NC"
+    print_message "1. Start the server: cd server && npm run dev" "$NC"
+    print_message "2. Start the client: cd client && npm run dev" "$NC"
 }
 
 # Start installation
